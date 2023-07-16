@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://dlavkxgg8yacq"]
+
+[ext_resource type="Texture2D" uid="uid://b4f27q5pp0ome" path="res://assets/debris.png" id="1_yx5ws"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jp3jl"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_xb5v2"]
+max_value = 1.25
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.154229, 1.25), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sheeb"]
+curve = SubResource("Curve_xb5v2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4tt5i"]
+particle_flag_disable_z = true
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 100.0
+angular_velocity_max = 300.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 180.0
+scale_curve = SubResource("CurveTexture_sheeb")
+color = Color(0.4872, 0.7424, 0.87, 0.392157)
+anim_offset_max = 1.0
+
+[sub_resource type="Animation" id="Animation_6q4xr"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5mna7"]
+_data = {
+"default": SubResource("Animation_6q4xr")
+}
+
+[node name="BulletSmoke" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_jp3jl")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_4tt5i")
+texture = ExtResource("1_yx5ws")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 15
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_5mna7")
+}

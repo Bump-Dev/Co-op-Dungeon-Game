@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://cc7btmk0hay21"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_a3o1a"]
+[ext_resource type="Texture2D" uid="uid://dk1dk0aratv5k" path="res://assets/player.png" id="2_7uyyv"]
+[ext_resource type="PackedScene" uid="uid://bxskuy83tbus7" path="res://scenes/guns/Pistol.tscn" id="3_t4t0v"]
+[ext_resource type="AudioStream" uid="uid://bcxwcjrqgcnl6" path="res://assets/audio/sfx/shoot0.sfxr" id="4_ujbuo"]
+[ext_resource type="AudioStream" uid="uid://b0p2baxo3yey4" path="res://assets/audio/sfx/shoot1.sfxr" id="5_248ej"]
+[ext_resource type="AudioStream" uid="uid://c5tg7cpfydp7y" path="res://assets/audio/sfx/shoot2.sfxr" id="6_2vxah"]
+[ext_resource type="AudioStream" uid="uid://cn1koyjvu03mx" path="res://assets/audio/sfx/shoot3.sfxr" id="7_ceep8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1potd"]
+atlas = ExtResource("2_7uyyv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq1wt"]
+atlas = ExtResource("2_7uyyv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88sxm"]
+atlas = ExtResource("2_7uyyv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e67p"]
+atlas = ExtResource("2_7uyyv")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trd1i"]
+atlas = ExtResource("2_7uyyv")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_28kkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1potd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq1wt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88sxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e67p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trd1i")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijh6s"]
+size = Vector2(4, 2)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_actk8"]
+streams_count = 4
+stream_0/stream = ExtResource("4_ujbuo")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_248ej")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_2vxah")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_ceep8")
+stream_3/weight = 1.0
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_a3o1a")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_28kkg")
+animation = &"move"
+autoplay = "idle"
+
+[node name="WeaponSlot" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Pistol" parent="WeaponSlot" instance=ExtResource("3_t4t0v")]
+
+[node name="BulletPosition" type="Marker2D" parent="WeaponSlot"]
+position = Vector2(14, 0)
+
+[node name="Cooldown" type="Timer" parent="WeaponSlot"]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ijh6s")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_actk8")

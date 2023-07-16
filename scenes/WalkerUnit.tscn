@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://di0yg0wexhtfr"]
+
+[ext_resource type="Script" path="res://scripts/WalkerUnit.gd" id="1_03uym"]
+
+[node name="WalkerUnit" type="Node2D"]
+script = ExtResource("1_03uym")

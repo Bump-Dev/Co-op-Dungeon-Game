@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cshoj4aihd5f0"]
+
+[ext_resource type="Script" path="res://scripts/Bullet.gd" id="1_v8yjp"]
+[ext_resource type="PackedScene" uid="uid://dlavkxgg8yacq" path="res://scenes/BulletSmoke.tscn" id="2_mpxqa"]
+[ext_resource type="PackedScene" uid="uid://cdoratf3r2s0x" path="res://scenes/BulletImpact.tscn" id="3_0lrhq"]
+[ext_resource type="Texture2D" uid="uid://bisqjfrsxmq7k" path="res://assets/bullet.png" id="4_3c0ye"]
+[ext_resource type="Texture2D" uid="uid://5jl0vnwkjp8n" path="res://assets/light.png" id="4_etn4c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_crrtu"]
+radius = 4.0
+
+[node name="Bullet" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_v8yjp")
+smoke_scene = ExtResource("2_mpxqa")
+impact_scene = ExtResource("3_0lrhq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("4_3c0ye")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_crrtu")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.94902, 0.54902, 1)
+energy = 0.05
+texture = ExtResource("4_etn4c")
+texture_scale = 1.5
+
+[node name="Lifetime" type="Timer" parent="."]
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

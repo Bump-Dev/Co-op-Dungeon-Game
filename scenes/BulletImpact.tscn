@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdoratf3r2s0x"]
+
+[ext_resource type="Texture2D" uid="uid://o2t7m3tfkacn" path="res://assets/collision.png" id="1_p7220"]
+[ext_resource type="Texture2D" uid="uid://5jl0vnwkjp8n" path="res://assets/light.png" id="1_u57n4"]
+[ext_resource type="AudioStream" uid="uid://45tmsqcmkbes" path="res://assets/audio/sfx/bullet_hit0.sfxr" id="3_ijmej"]
+[ext_resource type="AudioStream" uid="uid://deuru7mvry22k" path="res://assets/audio/sfx/bullet_hit1.sfxr" id="4_rs7u6"]
+[ext_resource type="AudioStream" uid="uid://ctdvnp6x36om2" path="res://assets/audio/sfx/bullet_hit2.sfxr" id="5_7oix7"]
+[ext_resource type="AudioStream" uid="uid://cmwcvaxm1egwr" path="res://assets/audio/sfx/bullet_hit3.sfxr" id="6_qv5e4"]
+
+[sub_resource type="Animation" id="Animation_cp6cs"]
+resource_name = "default"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hit:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uko74"]
+_data = {
+"default": SubResource("Animation_cp6cs")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_eg721"]
+streams_count = 4
+stream_0/stream = ExtResource("3_ijmej")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_rs7u6")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("5_7oix7")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("6_qv5e4")
+stream_3/weight = 1.0
+
+[node name="BulletImpact" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.588235)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_p7220")
+centered = false
+offset = Vector2(0, -8)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_uko74")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1.33333, 0)
+color = Color(1, 0.94902, 0.54902, 1)
+energy = 0.05
+texture = ExtResource("1_u57n4")
+texture_scale = 1.5
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_eg721")
