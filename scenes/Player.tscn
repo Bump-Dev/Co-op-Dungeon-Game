@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cc7btmk0hay21"]
+[gd_scene load_steps=17 format=3 uid="uid://cc7btmk0hay21"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_a3o1a"]
 [ext_resource type="Texture2D" uid="uid://dk1dk0aratv5k" path="res://assets/player.png" id="2_7uyyv"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b0p2baxo3yey4" path="res://assets/audio/sfx/shoot1.sfxr" id="5_248ej"]
 [ext_resource type="AudioStream" uid="uid://c5tg7cpfydp7y" path="res://assets/audio/sfx/shoot2.sfxr" id="6_2vxah"]
 [ext_resource type="AudioStream" uid="uid://cn1koyjvu03mx" path="res://assets/audio/sfx/shoot3.sfxr" id="7_ceep8"]
+[ext_resource type="Texture2D" uid="uid://5jl0vnwkjp8n" path="res://assets/light.png" id="8_8mybg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1potd"]
 atlas = ExtResource("2_7uyyv")
@@ -57,7 +58,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijh6s"]
-size = Vector2(8, 2)
+size = Vector2(8, 4)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_actk8"]
 streams_count = 4
@@ -86,6 +87,7 @@ autoplay = "idle"
 z_index = 1
 
 [node name="Pistol" parent="WeaponSlot" instance=ExtResource("3_t4t0v")]
+position = Vector2(10, 0)
 
 [node name="BulletPosition" type="Marker2D" parent="WeaponSlot"]
 position = Vector2(14, 0)
@@ -95,14 +97,24 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, 2)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ijh6s")
 debug_color = Color(0.701961, 0.0705882, 0, 0.27451)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
 
 [node name="SFX" type="Node2D" parent="."]
 
 [node name="Shoot" type="AudioStreamPlayer2D" parent="SFX"]
 stream = SubResource("AudioStreamRandomizer_actk8")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.4
+shadow_enabled = true
+texture = ExtResource("8_8mybg")
+texture_scale = 0.5

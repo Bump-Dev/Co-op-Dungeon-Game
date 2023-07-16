@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
-@onready var Lifetime := $Lifetime
-
 @export var smoke_scene:PackedScene
 @export var impact_scene:PackedScene
 
-const SPEED = 250.0
+@onready var Lifetime := $Lifetime
+
+var speed:int
+var damage:int
+
 var direction:Vector2
 
 func _physics_process(delta):
 	$Sprite2D.scale = lerp($Sprite2D.scale,Vector2(1,1),0.5)
-	var collision_result = move_and_collide(direction * SPEED * delta)
+	var collision_result = move_and_collide(direction * speed * delta)
 	if collision_result != null:
 		var smoke = smoke_scene.instantiate()
 		get_parent().add_child(smoke)

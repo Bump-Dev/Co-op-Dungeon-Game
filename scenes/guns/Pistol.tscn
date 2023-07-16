@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://cshoj4aihd5f0" path="res://scenes/Bullet.tscn" id="3_gpbo0"]
 
 [node name="Pistol" type="Sprite2D"]
-position = Vector2(10, 0)
 texture = ExtResource("1_55rse")
 script = ExtResource("2_iieo7")
+speed = 300
+spread = 0.1
 damage = 1
-lifetime = 1.0
-speed = 10
-cooldown = 0.1
+cooldown = 0.3
+bullet_lifetime = 1.0
 bullet_scene = ExtResource("3_gpbo0")

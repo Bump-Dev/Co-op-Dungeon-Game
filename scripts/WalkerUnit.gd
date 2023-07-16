@@ -9,9 +9,9 @@ const PLAYER = preload("res://scenes/Player.tscn")
 
 var chance_to_spawn_player := 0.005
 var chance_to_walk_straight := 0.01
-var straight_walk_amt := 10
+var straight_walk_amt := 5
 var is_straight_walker:bool
-var path_length := 200
+var path_length := 300
 
 func calculate_path():
 	is_straight_walker = randi() % 2
