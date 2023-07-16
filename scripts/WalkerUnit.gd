@@ -41,8 +41,9 @@ func calculate_path():
 			if randf() < chance_to_spawn_player:
 				Head.player_spawned = true
 				var p = PLAYER.instantiate()
-				Head.add_child(p)
+				Head.get_parent().get_node("TileMap").add_child(p)
 				p.global_position = location
+			# How to set cell with scene?
 		
 		var modifier_direction:Vector2
 		match dir:

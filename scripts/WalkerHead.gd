@@ -12,7 +12,7 @@ func _ready():
 	var coords:Array
 	for x in range(MAP_SIZE):
 		for y in range(MAP_SIZE):
-			coords.append(Vector2(x-MAP_SIZE/2,y-MAP_SIZE/2))
+			coords.append(Vector2(x,y))
 	tileMap.set_cells_terrain_connect(0,coords,0,0)
 
 	for walker in WALKER_UNITS:
@@ -20,7 +20,6 @@ func _ready():
 		w.global_position = global_position
 		add_child(w)
 		w.calculate_path()
-	
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):

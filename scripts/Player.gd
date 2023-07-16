@@ -39,8 +39,9 @@ func _physics_process(delta):
 	if direction:
 		velocity = velocity.move_toward(direction * SPEED,SPEED/10)
 		$Sprite.play("move")
-		$Sprite.flip_h = sign(direction.x) == -1
+		if direction.x:
+			$Sprite.flip_h = sign(direction.x) == -1
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO,SPEED/10)
+		velocity = velocity.move_toward(Vector2.ZERO,SPEED/2)
 		$Sprite.play("idle")
 	move_and_slide()

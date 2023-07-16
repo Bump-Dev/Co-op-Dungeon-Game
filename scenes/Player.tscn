@@ -57,7 +57,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijh6s"]
-size = Vector2(4, 2)
+size = Vector2(8, 2)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_actk8"]
 streams_count = 4
@@ -97,6 +97,7 @@ one_shot = true
 visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_ijh6s")
+debug_color = Color(0.701961, 0.0705882, 0, 0.27451)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
