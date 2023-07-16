@@ -36,15 +36,7 @@ func calculate_path():
 	var location:Vector2 = get_parent().global_position
 	var tm:TileMap = get_parent().tileMap
 	
-	for dir in path_steps:
-		if !Head.player_spawned:
-			if randf() < chance_to_spawn_player:
-				Head.player_spawned = true
-				var p = PLAYER.instantiate()
-				Head.get_parent().get_node("TileMap").add_child(p)
-				p.global_position = location
-			# How to set cell with scene?
-		
+	for dir in path_steps:		
 		var modifier_direction:Vector2
 		match dir:
 			0:
@@ -58,3 +50,10 @@ func calculate_path():
 		location += modifier_direction
 		var map_coords := tm.local_to_map(location)
 		tm.set_cells_terrain_connect(0,[map_coords],0,1)
+		
+		if !Head.player_spawned:
+			if randf() < chance_to_spawn_player:
+				Head.player_spawned = true
+				var p = PLAYER.instantiate()
+				Head.get_parent().get_node("TileMap").add_child(p)
+				p.global_position = location
