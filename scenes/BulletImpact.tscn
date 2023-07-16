@@ -83,10 +83,10 @@ libraries = {
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(1.33333, 0)
 color = Color(0.65098, 0.988235, 0.858824, 1)
-energy = 0.2
+energy = 0.5
 shadow_enabled = true
 texture = ExtResource("1_u57n4")
-texture_scale = 0.2
+texture_scale = 0.15
 
 [node name="Hit" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_eg721")

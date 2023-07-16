@@ -23,6 +23,10 @@ func select_weapon(weapon:Sprite2D):
 		if i != current_weapon && i.has_method("fire"):
 			i.hide()
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_accept"):
+		select_weapon(weapons.pick_random())
+
 func _process(delta):
 	if Input.is_action_pressed("fire") && Cooldown.is_stopped():
 		current_weapon.fire()

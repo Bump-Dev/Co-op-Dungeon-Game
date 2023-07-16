@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxskuy83tbus7"]
 
-[ext_resource type="Texture2D" uid="uid://de0mkcs75cleo" path="res://assets/gun.png" id="1_55rse"]
+[ext_resource type="Texture2D" uid="uid://de0mkcs75cleo" path="res://assets/guns/pistol.png" id="1_spcbp"]
 [ext_resource type="Script" path="res://scripts/Gun.gd" id="2_iieo7"]
 [ext_resource type="PackedScene" uid="uid://cshoj4aihd5f0" path="res://scenes/Bullet.tscn" id="3_gpbo0"]
 
 [node name="Pistol" type="Sprite2D"]
-texture = ExtResource("1_55rse")
+texture = ExtResource("1_spcbp")
 script = ExtResource("2_iieo7")
 speed = 300
 spread = 0.1
-damage = 1
+damage = 2
 cooldown = 0.3
 bullet_lifetime = 1.0
 bullet_scene = ExtResource("3_gpbo0")

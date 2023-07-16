@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cc7btmk0hay21"]
+[gd_scene load_steps=18 format=3 uid="uid://cc7btmk0hay21"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_a3o1a"]
 [ext_resource type="Texture2D" uid="uid://dk1dk0aratv5k" path="res://assets/player.png" id="2_7uyyv"]
+[ext_resource type="PackedScene" uid="uid://dhptkcxkqcysp" path="res://scenes/guns/AssaultRifle.tscn" id="3_bvoch"]
 [ext_resource type="PackedScene" uid="uid://bxskuy83tbus7" path="res://scenes/guns/Pistol.tscn" id="3_t4t0v"]
 [ext_resource type="AudioStream" uid="uid://bcxwcjrqgcnl6" path="res://assets/audio/sfx/shoot0.sfxr" id="4_ujbuo"]
 [ext_resource type="AudioStream" uid="uid://b0p2baxo3yey4" path="res://assets/audio/sfx/shoot1.sfxr" id="5_248ej"]
@@ -54,7 +55,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"move",
-"speed": 10.0
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ijh6s"]
@@ -87,10 +88,15 @@ autoplay = "idle"
 z_index = 1
 
 [node name="Pistol" parent="WeaponSlot" instance=ExtResource("3_t4t0v")]
+visible = false
 position = Vector2(10, 0)
 
+[node name="AssaultRifle" parent="WeaponSlot" instance=ExtResource("3_bvoch")]
+visible = false
+position = Vector2(10, 0.5)
+
 [node name="BulletPosition" type="Marker2D" parent="WeaponSlot"]
-position = Vector2(14, 0)
+position = Vector2(12, 0)
 
 [node name="Cooldown" type="Timer" parent="WeaponSlot"]
 one_shot = true
@@ -114,7 +120,7 @@ drag_bottom_margin = 0.5
 stream = SubResource("AudioStreamRandomizer_actk8")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 0.4
+energy = 0.5
 shadow_enabled = true
 texture = ExtResource("8_8mybg")
 texture_scale = 0.5
